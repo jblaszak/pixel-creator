@@ -1,0 +1,18 @@
+{
+  "name": "pixel-creator",
+  "version": "1.0.0",
+  "description": "Creates image files for each pixel in image and metadata for NFT collection",
+  "main": "index.js",
+  "pkg": {
+    "assets": [
+      "node_modules/**/*",
+      "src/**/*"
+    ]
+  },
+  "scripts": {
+    "build": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
