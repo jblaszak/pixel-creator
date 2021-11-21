@@ -24,9 +24,27 @@ const buildSetup = () => {
 
 const addMetadata = (_edition) => {
   let dateTime = Date.now();
+  let new_description = description;
+  const check = (att) => attributesList.some((i) => i.trait_type === att);
+  if (check("Influential")) {
+    new_description +=
+      " This pixel's influential nature boosts the 3 pixels in each direction!";
+  }
+  if (check("Load Bearing")) {
+    new_description +=
+      " This pixel's load bearing nature boosts the 5 pixels above!";
+  }
+  if (check("Structural Support")) {
+    new_description +=
+      " This pixel's structural nature boosts the 5 pixels left and right!";
+  }
+  if (check("Queen")) {
+    new_description +=
+      " This pixel's special queen-like nature boosts the 5 pixels in the X and + directions!";
+  }
   let tempMetadata = {
     name: `${projectName} #${_edition}`,
-    description: description,
+    description: new_description,
     image: `${baseUri}/${_edition}.svg`,
     edition: _edition,
     date: dateTime,
@@ -44,14 +62,14 @@ const addAttribute = (type, value) => {
 };
 
 const writeMetaData = (_data) => {
-  fs.writeFileSync(`${buildDir}/json/_metadata.json`, _data);
+  fs.writeFileSync(`${buildDir}/json/_metadata`, _data);
 };
 
 const saveMetaDataSingleFile = (_editionCount) => {
   let metadata = metadataList.find((meta) => meta.edition == _editionCount);
 
   fs.writeFileSync(
-    `${buildDir}/json/${_editionCount}.json`,
+    `${buildDir}/json/${_editionCount}`,
     JSON.stringify(metadata, null, 2)
   );
 };
@@ -66,6 +84,7 @@ const atts = [
   "Hand Crafted",
   "Influential",
 ];
+const atts2 = ["Load Bearing", "Structural", "Queen"];
 const coins = [
   "LUNA",
   "AVAX",
@@ -85,7 +104,7 @@ const coins = [
 ];
 
 const startCreating = async () => {
-  for (let i = 0; i < 21 * 10000; i += 21) {
+  for (let i = 0; i < 24 * 10000; i += 24) {
     let pixel = {};
 
     pixel["R"] = +attributeData.slice(i, i + 3);
@@ -122,7 +141,13 @@ const startCreating = async () => {
       isFlashy ? flashyRect : regularRect
     }</svg>`;
 
-    const edition = i / 21 + 1;
+    // for all attributes in atts2 list
+    for (const att of atts2) {
+      if (attributeData[i + 21 + atts2.indexOf(att)] === "1") {
+        addAttribute(att, true);
+      }
+    }
+    const edition = i / 24 + 1;
 
     fs.writeFileSync(`${buildDir}/images/${edition}.svg`, data);
     addMetadata(edition);
