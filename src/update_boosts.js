@@ -64,7 +64,7 @@ for (let i = 0; i < data.length; i++) {
   console.log(`load bearing done`);
 
   // If structural support, add boost to 5 pixels left and right
-  if (check(data[i], "Structural Support")) {
+  if (check(data[i], "Structural")) {
     // Sweep left to right
     for (let x = -5; x < 6; x++) {
       if ((i % 100) + x < 0) continue; // If outside left wall
@@ -80,7 +80,7 @@ for (let i = 0; i < data.length; i++) {
       data[pixel].description += ` Boosted by ${i + 1}.`;
     }
   }
-  console.log(`structural support done`);
+  console.log(`structural done`);
 
   // If queen, add boost to 3x3 pixels
   if (check(data[i], "Queen")) {

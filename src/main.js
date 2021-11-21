@@ -34,7 +34,7 @@ const addMetadata = (_edition) => {
     new_description +=
       " This pixel's load bearing nature boosts the 5 pixels above!";
   }
-  if (check("Structural Support")) {
+  if (check("Structural")) {
     new_description +=
       " This pixel's structural nature boosts the 5 pixels left and right!";
   }
