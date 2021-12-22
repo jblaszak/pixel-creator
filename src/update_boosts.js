@@ -23,8 +23,14 @@ for (let i = 0; i < data.length; i++) {
     // Sweep left to right
     for (let x = -3; x < 4; x++) {
       console.log(`x check: ${x}`);
-      if ((i % 100) + x < 0) continue; // If outside left wall
-      if ((i % 100) + x > 99) break; // If outside right wall
+      const kMod = i % 100;
+      if (kMod !== 0) {
+        // will be 0 at right wall
+        if (kMod + x < 1) continue; // If outside left wall
+        if (kMod + x > 100) break; // If outside right wall
+      } else {
+        if (kMod + x > 0) continue; // If at left wall after starting from right
+      }
 
       // Sweep top to bottom
       for (let y = -300; y < 400; y = y + 100) {
@@ -67,8 +73,14 @@ for (let i = 0; i < data.length; i++) {
   if (check(data[i], "Structural")) {
     // Sweep left to right
     for (let x = -5; x < 6; x++) {
-      if ((i % 100) + x < 0) continue; // If outside left wall
-      if ((i % 100) + x > 99) break; // If outside right wall
+      const kMod = i % 100;
+      if (kMod !== 0) {
+        // will be 0 at right wall
+        if (kMod + x < 1) continue; // If outside left wall
+        if (kMod + x > 100) break; // If outside right wall
+      } else {
+        if (kMod + x > 0) break; // If at left wall after starting from right
+      }
 
       const pixel = i + x;
       const boostIndex = boostIndexFinder(data[pixel]);
@@ -123,8 +135,14 @@ for (let i = 0; i < data.length; i++) {
       const x = moveArray[j][0];
       const y = moveArray[j][1];
 
-      if ((i % 100) + x < 0) continue; // If outside left wall
-      if ((i % 100) + x > 99) break; // If outside right wall
+      const kMod = i % 100;
+      if (kMod !== 0) {
+        // will be 0 at right wall
+        if (kMod + x < 1) continue; // If outside left wall
+        if (kMod + x > 100) continue; // If outside right wall
+      } else {
+        if (kMod + x > 0) continue; // If at left wall after starting from right
+      }
 
       if (i + y < 0) continue; // If outside top wall
       if (i + y > 9999) break; // If outside bottom wall
@@ -142,8 +160,12 @@ for (let i = 0; i < data.length; i++) {
     // do the 0th row
     // Sweep left to right
     for (let x = -5; x < 6; x++) {
-      if ((i % 100) + x < 0) continue; // If outside left wall
-      if ((i % 100) + x > 99) break; // If outside right wall
+      const kMod = i % 100;
+      if (kMod !== 0) {
+        // will be 0 at right wall
+        if (kMod + x < 1) continue; // If outside left wall
+        if (kMod + x > 100) break; // If outside right wall
+      }
 
       const pixel = i + x;
       const boostIndex = boostIndexFinder(data[pixel]);
